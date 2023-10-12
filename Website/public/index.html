@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UMLify</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Add CSS for the loading circle */
+        .loading-circle-container {
+            width: 100%;
+            text-align: center;
+            display: none; /* Initially hidden */
+        }
+
+        .loading-circle {
+            width: 100px;
+            height: 100px;
+            border: 8px solid rgba(0, 0, 0, 0.1);
+            border-top: 8px solid red; /* Change the color as desired */
+            border-radius: 50%;
+            animation: spin 2s linear infinite;
+            margin: 20px auto; /* Center the loading circle */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.4/pako.min.js"></script>
+
+</head>
+<body>
+    <header>
+        <h1>UMLify</h1>
+    </header>
+
+    <main>
+        <section class="upload-section">
+            <h2>Upload Your Code Here</h2>
+            <form id="upload-form" enctype="multipart/form-data">
+                <label for="code-file">Select a File to Upload:</label>
+                <input type="file" id="code-file" name="codeFile" accept=".java, .cpp, .py, .js">
+
+                <label for="diagram-type">Choose UML Diagram Type:</label>
+                <select id="diagram-type" name="diagramType">
+                    <option value="class">Class Diagram</option>
+                    <option value="sequence">Sequence Diagram</option>
+                    <!-- Add more diagram types as needed -->
+                </select>
+
+                <button type="submit" id="generate-button">Generate UML Diagram</button>
+            </form>
+        </section>
+
+        <section class="diagram-section">
+            <h2>Generated PlantUML Code:</h2>
+            <div id="plantUML-code-container" class="plantUML-code-container">
+                <!-- PlantUML code will be displayed here -->
+            </div>
+            <!-- Add the following container for the PlantUML diagram -->
+            <div id="plantUML-diagram-container" class="plantUML-diagram-container">
+                <!-- PlantUML diagram will be displayed here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Loading circle container -->
+    <div class="loading-circle-container" id="loading-circle">
+        <div class="loading-circle"></div>
+    </div>
+
+    <script>
+        // Define a function to limit API requests
+        async function rateLimitedRequest(requestData) {
+            // Implement your own rate-limiting logic here
+            // For example, add a delay (e.g., 2 seconds) between requests
+            const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+            await delay(2000); // Adjust the delay as needed
+
+            // Make the API request
+            return fetch('https://api.openai.com/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer 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', // Replace with your actual API key
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestData),
+            });
+        }
+
+        function interactWithChatGPT(userMessage) {
+            // Show loading circle
+            document.getElementById('loading-circle').style.display = 'block';
+
+            // Create a data object for the API request
+            const requestData = {
+                model: 'gpt-3.5-turbo', // Specify the ChatGPT model
+                messages: [
+                    { role: 'system', content: 'You are a helpful assistant that converts code to PlantUML format.' },
+                    { role: 'user', content: userMessage },
+                ],
+                max_tokens: 300, // You can adjust the max_tokens as needed
+            };
+
+            // Make an API request to ChatGPT
+            console.log('API Request Data:', requestData);
+            fetch('https://api.openai.com/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer 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', // Replace with your actual API key
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestData),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Hide loading circle
+                    console.log('API Response:', data);
+                    document.getElementById('loading-circle').style.display = 'none';
+
+                    // Extract the response from ChatGPT
+                    const chatGPTResponse = data.choices[0].message.content;
+
+                    // Convert ChatGPT response to PlantUML format (customize this part)
+                    const plantUMLCode = convertChatGPTResponseToPlantUML(chatGPTResponse);
+
+                    // Display the PlantUML code
+                    displayPlantUMLCode(plantUMLCode);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Hide loading circle in case of an error
+                    document.getElementById('loading-circle').style.display = 'none';
+                });
+        }
+
+        // Function to convert ChatGPT response to PlantUML format (customize this part)
+        function convertChatGPTResponseToPlantUML(response) {
+            // Parse the response
+            const lines = response.split('\n');
+            let plantUMLCode = '';
+            let isInPlantUMLBlock = false;
+
+            for (const line of lines) {
+                if (line.startsWith('@startuml')) {
+                    isInPlantUMLBlock = true;
+                    plantUMLCode += line + '\n';
+                } else if (line.startsWith('@enduml')) {
+                    isInPlantUMLBlock = false;
+                    plantUMLCode += line + '\n';
+                } else if (isInPlantUMLBlock) {
+                    plantUMLCode += line + '\n';
+                }
+            }
+
+            return plantUMLCode;
+        }
+
+        // Function to display the PlantUML code and render the PlantUML diagram
+        // Function to display the PlantUML code and render the PlantUML diagram
+// Function to display the PlantUML code and render the PlantUML diagram
+ 
+// Function to display the PlantUML code and render the PlantUML diagram
+function displayPlantUMLCode(plantUMLCode) {
+    // Log and verify this PlantUML code manually
+    console.log('Original PlantUML Code: \n', plantUMLCode);
+
+    // Encode the PlantUML code in HEX format
+    const hexEncodedPlantUMLCode = encodePlantUMLInHex(plantUMLCode);
+
+    // Construct the URL with HEX-encoded data
+    const imageUrl = `https://www.plantuml.com/plantuml/png/~h${hexEncodedPlantUMLCode}`;
+
+    // Log and manually access this URL to verify
+    console.log('Image URL:', imageUrl);
+
+    // Set the image source
+    const plantUMLDiagramContainer = document.getElementById('plantUML-diagram-container');
+    plantUMLDiagramContainer.innerHTML = '';
+    const img = document.createElement('img');
+    img.src = imageUrl;
+    plantUMLDiagramContainer.appendChild(img);
+}
+
+// Function to encode PlantUML text in HEX format
+// Function to encode PlantUML text in HEX format
+// Function to encode PlantUML text in HEX format with correct line endings
+function encodePlantUMLInHex(plantUMLCode) {
+    // Convert each character to HEX and include correct line endings (0D0A)
+   let hex = '';
+    for (let i = 0; i < plantUMLCode.length; i++) {
+        const charCode = plantUMLCode.charCodeAt(i).toString(16).toUpperCase();
+        hex += charCode.length < 2 ? '0' + charCode : charCode; // Ensure two characters for each code
+    }
+    return hex;
+}
+ 
+
+        // Update the event listener to use ChatGPT
+        document.getElementById('upload-form').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the form submission
+
+            // Get user input from the code file
+            const fileInput = document.getElementById('code-file');
+            const selectedFile = fileInput.files[0];
+
+            if (selectedFile) {
+                // Read the contents of the selected file
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    const codeContent = event.target.result;
+
+                    // Send the code content to ChatGPT for conversion
+                    interactWithChatGPT(codeContent);
+                };
+                reader.onerror = function (event) {
+                    // Handle file read errors here
+                    console.error('File read error:', event.target.error);
+
+                    // Display an error message to the user
+                    const plantUMLContainer = document.getElementById('plantUML-code-container');
+                    plantUMLContainer.textContent = 'Error: Failed to read the selected file.';
+                };
+                reader.readAsText(selectedFile);
+            }
+        });
+		
+
+    </script>
+</body>
+</html>

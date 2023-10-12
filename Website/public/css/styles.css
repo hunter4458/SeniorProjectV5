@@ -1,0 +1,95 @@
+/* styles.css */
+
+/* Reset some default browser styles for consistency */
+body, h1, h2, form, label, input, select, button {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+/* Set a background color and font family for the entire page */
+body {
+    background-color: #f2f2f2;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Style the header with a background color and centered text */
+header {
+    background-color: red;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+}
+
+/* Style the main content area */
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style form elements */
+.upload-section, .diagram-section {
+    margin-bottom: 20px;
+}
+
+form {
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="file"], select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button {
+    background-color: red;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #005ab2;
+}
+
+/* Style the UML diagram display area */
+.uml-diagram {
+    text-align: center;
+}
+
+.uml-diagram img {
+    max-width: 100%;
+    height: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive styles for smaller screens */
+@media screen and (max-width: 768px) {
+    main {
+        padding: 10px;
+    }
+
+    input[type="file"], select, button {
+        margin-bottom: 5px;
+    }
+}
