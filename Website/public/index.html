@@ -70,18 +70,20 @@
             <h2>Upload Your Code Here</h2>
             <form id="upload-form" enctype="multipart/form-data">
                 <label for="code-file">Select a File to Upload:</label>
-
-                <label for="code-file">Choose File</label>
-                <input type="file" id="code-file" name="codeFile" accept=".java, .cpp, .py, .js">
-
-
+               
+                <div class="custom-file-input">
+                    <span id="file-name">No File Chosen</span>
+                    <label for="code-file">Choose File</label>
+                    <input type="file" id="code-file" name="codeFile" accept=".java, .cpp, .py, .js" onchange="updateFileName(this)">
+                </div>
+                
                 <label for="diagram-type">Choose UML Diagram Type:</label>
                 <select id="diagram-type" name="diagramType">
                     <option value="class">Class Diagram</option>
                     <option value="sequence">Sequence Diagram</option>
                     <!-- Add more diagram types as needed -->
                 </select>
-
+                
                 <button type="submit" id="generate-button">Generate UML Diagram</button>
             </form>
         </section>
@@ -105,6 +107,11 @@
 
 
     <script>
+	    // SB Handle the "No file selected" text update
+    function updateFileName(inputElement) {
+            const fileName = inputElement.files[0] ? inputElement.files[0].name : 'Choose a File';
+            document.getElementById('file-name').innerText = fileName;
+        }
         // Define a function to limit API requests
         async function rateLimitedRequest(requestData) {
             // Implement your own rate-limiting logic here
