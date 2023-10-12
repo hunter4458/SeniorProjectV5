@@ -1,78 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UMLify</title>
-    <link rel="stylesheet" href="css/styles.css"> 
+    <link rel="stylesheet" href="css/styles.css">
     <style>
         /* Add CSS for the loading circle */
         .loading-circle-container {
             width: 100%;
             text-align: center;
-            display: none; /* Initially hidden */
+            display: none;
+            /* Initially hidden */
         }
 
         .loading-circle {
             width: 100px;
             height: 100px;
             border: 8px solid rgba(0, 0, 0, 0.1);
-            border-top: 8px solid rgb(113, 179, 91);  
+            border-top: 8px solid red;
+            /* Change the color as desired */
             border-radius: 50%;
             animation: spin 2s linear infinite;
-            margin: 20px auto; /* Center the loading circle */
+            margin: 20px auto;
+            /* Center the loading circle */
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
     </style>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.4/pako.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.4/pako.min.js"></script>
 
-<!-- SB -->
 </head>
+
 <body>
-
-
-
-
-<!-- HeaderBox and Everything inside-->
-
     <header>
-        
-        <h1 id="h11">UMLify</h1>
-         <!-- Created ID for Nav Bar -->
-        <nav id="navbar">
-            <!-- Navigation menu here -->
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="loginpage.html">Login/Register</a></li>
-            </ul>
-        </nav>
-        
-
-
-
+        <h1>UMLify</h1>
     </header>
+
     <main>
         <section class="upload-section">
             <h2>Upload Your Code Here</h2>
             <form id="upload-form" enctype="multipart/form-data">
                 <label for="code-file">Select a File to Upload:</label>
-               
-                    <label for="code-file">Choose File</label>
-                     <input type="file" id="code-file" name="codeFile" accept=".java, .cpp, .py, .js">
-               
-                
+                <input type="file" id="code-file" name="codeFile" accept=".java, .cpp, .py, .js">
+
                 <label for="diagram-type">Choose UML Diagram Type:</label>
                 <select id="diagram-type" name="diagramType">
                     <option value="class">Class Diagram</option>
                     <option value="sequence">Sequence Diagram</option>
                     <!-- Add more diagram types as needed -->
                 </select>
-                
+
                 <button type="submit" id="generate-button">Generate UML Diagram</button>
             </form>
         </section>
@@ -87,14 +74,12 @@
                 <!-- PlantUML diagram will be displayed here -->
             </div>
         </section>
-
-        <!-- SB Loading circle container -->
-        <div class="loading-circle-container" id="loading-circle">
-            <div class="loading-circle"></div>
-        </div>
     </main>
 
- 
+    <!-- Loading circle container -->
+    <div class="loading-circle-container" id="loading-circle">
+        <div class="loading-circle"></div>
+    </div>
     <script>
         // Define a function to limit API requests
         async function rateLimitedRequest(requestData) {
@@ -245,5 +230,5 @@
         });
     </script>
 </body>
-</html>
 
+</html>
