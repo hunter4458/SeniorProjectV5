@@ -13,9 +13,6 @@
 
 <body>
 
-
-
-
     <!-- HeaderBox and Everything inside-->
 
     <header>
@@ -33,7 +30,7 @@
     </header>
     <main>
         <section class="upload-section">
-            <h2>Upload Your Code Here</h2>
+            <h2>Upload Your Code</h2>
             <form id="upload-form" enctype="multipart/form-data">
                 <div class="custom-file-input">
                     <span id="file-name">No File Chosen</span>
@@ -42,7 +39,7 @@
                 </div>
                 </select>
                 
-                <button type="submit" id="generate-button">Generate UML Diagram</button>
+                <button type="submit" id="generate-button">UMLIFY!</button>
             </form>
         </section>
 
@@ -52,6 +49,7 @@
             <div id="plantUML-diagram-container" class="plantUML-diagram-container">
                 <!-- PlantUML diagram will be displayed here -->
             </div>
+			<button id="generate-another-button" style="display: none;">Generate Another Diagram</button>
 		</div>
         </section>
 
@@ -60,13 +58,18 @@
     </main>
 
 
+
+    
     <script>
 	    // SB Handle the "No file selected" text update
     function updateFileName(inputElement) {
             const fileName = inputElement.files[0] ? inputElement.files[0].name : 'Choose a File';
             document.getElementById('file-name').innerText = fileName;
         }
-		function displayRandomJoke() {
+
+
+    //DISPLAYS RANDOM JOKES WHILE LOADING THE DIAGRAM
+    function displayRandomJoke() {
         const loadingText = document.getElementById('loading-text');
         const jokes = [
             "Why do programmers always mix up Christmas and Halloween? Because Oct 31 == Dec 25.",
@@ -89,8 +92,12 @@
         loadingText.textContent = 'UML Diagram Loaded!';
 		}, 20000);
 
+
+
+
+
         // Define a function to limit API requests
-        async function rateLimitedRequest(requestData) {
+    async function rateLimitedRequest(requestData) {
             // Implement your own rate-limiting logic here
             // For example, add a delay (e.g., 2 seconds) between requests
             const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -106,7 +113,10 @@
             });
         }
 
-        function interactWithChatGPT(userMessage) {
+
+
+
+    function interactWithChatGPT(userMessage) {
             // Show loading circle
             document.getElementById('loading-text').style.display = 'block';
 
@@ -151,8 +161,11 @@
                 });
         }
 
+
+
+
         // Function to convert ChatGPT response to PlantUML format (customize this part)
-        function convertChatGPTResponseToPlantUML(response) {
+    function convertChatGPTResponseToPlantUML(response) {
             // Parse the response
             const lines = response.split('\n');
             let plantUMLCode = '';
@@ -173,8 +186,12 @@
             return plantUMLCode;
         }
 
+
+
+
+
         // Function to display the PlantUML code and render the PlantUML diagram
-        function displayPlantUMLCode(plantUMLCode) {
+    function displayPlantUMLCode(plantUMLCode) {
             // Log and verify this PlantUML code manually
             console.log('Original PlantUML Code: \n', plantUMLCode);
 
@@ -193,11 +210,14 @@
             const img = document.createElement('img');
             img.src = imageUrl;
             plantUMLDiagramContainer.appendChild(img);
+			document.getElementById('generate-another-button').style.display = 'block';
         }
 		
 
+
+
         // Function to encode PlantUML text in HEX format with correct line endings
-        function encodePlantUMLInHex(plantUMLCode) {
+    function encodePlantUMLInHex(plantUMLCode) {
             // Convert each character to HEX and include correct line endings (0D0A)
             let hex = '';
             for (let i = 0; i < plantUMLCode.length; i++) {
@@ -208,8 +228,11 @@
         }
 
 
+
+
+
         // Update the event listener to use ChatGPT
-        document.getElementById('upload-form').addEventListener('submit', function (event) {
+    document.getElementById('upload-form').addEventListener('submit', function (event) {
             event.preventDefault(); // Prevent the form submission
 
             // Get user input from the code file
@@ -236,7 +259,28 @@
                 reader.readAsText(selectedFile);
             }
         });
-    </script>
-</body>
+    function clearDiagram() {
+    const plantUMLDiagramContainer = document.getElementById('plantUML-diagram-container');
+    plantUMLDiagramContainer.innerHTML = '';
+    document.getElementById('generate-another-button').style.display = 'none';
+}
 
+
+
+
+
+// Function to generate another diagram
+    function generateAnotherDiagram() {
+        // Call the function to clear the last diagram
+        clearDiagram();
+
+    // You can also show a loading message if needed
+        document.getElementById('loading-text').textContent = 'Loading...'; // Replace with your loading message
+}
+
+// Add click event listeners for the buttons
+
+    document.getElementById('generate-another-button').addEventListener('click', generateAnotherDiagram);
+        </script>
+    </body>
 </html>
