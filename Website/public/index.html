@@ -6,36 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UMLify</title>
     <link rel="stylesheet" href="css/styles.css">
-    <style>
-        /* Add CSS for the loading circle */
-        .loading-circle-container {
-            width: 100%;
-            text-align: center;
-            display: none;
-            /* Initially hidden */
-        }
-
-        .loading-circle {
-            width: 100px;
-            height: 100px;
-            border: 8px solid rgba(0, 0, 0, 0.1);
-            border-top: 8px solid rgb(113, 179, 91);
-            border-radius: 50%;
-            animation: spin 2s linear infinite;
-            margin: 20px auto;
-            /* Center the loading circle */
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-    </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.4/pako.min.js"></script>
 
     <!-- SB -->
@@ -60,17 +30,11 @@
                 <li><a href="loginpage.html">Login/Register</a></li>
             </ul>
         </nav>
-
-
-
-
     </header>
     <main>
         <section class="upload-section">
             <h2>Upload Your Code Here</h2>
             <form id="upload-form" enctype="multipart/form-data">
-                <label for="code-file">Select a File to Upload:</label>
-               
                 <div class="custom-file-input">
                     <span id="file-name">No File Chosen</span>
                     <label for="code-file">Choose File</label>
@@ -82,21 +46,17 @@
             </form>
         </section>
 
-        <section class="diagram-section">
-            <h2>Generated PlantUML Code:</h2>
-            <div id="plantUML-code-container" class="plantUML-code-container">
-                <!-- PlantUML code will be displayed here -->
-            </div>
-            <!-- Add the following container for the PlantUML diagram -->
+       <section class="diagram-section">
+            <h2>Your Diagram:</h2>
+            <div id="diagram-container">
             <div id="plantUML-diagram-container" class="plantUML-diagram-container">
                 <!-- PlantUML diagram will be displayed here -->
             </div>
+		</div>
         </section>
 
-        <!-- SB Loading circle container -->
-        <div class="loading-circle-container" id="loading-circle">
-            <div class="loading-circle"></div>
-        </div>
+       <div id="loading-text"></div>
+       
     </main>
 
 
@@ -106,6 +66,29 @@
             const fileName = inputElement.files[0] ? inputElement.files[0].name : 'Choose a File';
             document.getElementById('file-name').innerText = fileName;
         }
+		function displayRandomJoke() {
+        const loadingText = document.getElementById('loading-text');
+        const jokes = [
+            "Why do programmers always mix up Christmas and Halloween? Because Oct 31 == Dec 25.",
+            "Why don't programmers like nature? It has too many bugs.",
+            "How do you comfort a JavaScript bug? You console it.",
+            "Why do Java developers wear glasses? Because they don't see sharp.",
+            "Why do C# and Java developers prefer iOS development? Because Objective-C.",
+        ];
+        const randomJoke = jokes[Math.floor(Math.random() * jokes.length)];
+        loadingText.textContent = randomJoke;
+		}
+
+		// Call displayRandomJoke every 5 seconds (adjust as needed)
+		setInterval(displayRandomJoke, 5000);
+
+		// Simulate loading for 20 seconds (adjust as needed)
+		setTimeout(() => {
+        // Replace this with code to display your UML diagram
+        const loadingText = document.getElementById('loading-text');
+        loadingText.textContent = 'UML Diagram Loaded!';
+		}, 20000);
+
         // Define a function to limit API requests
         async function rateLimitedRequest(requestData) {
             // Implement your own rate-limiting logic here
@@ -125,7 +108,7 @@
 
         function interactWithChatGPT(userMessage) {
             // Show loading circle
-            document.getElementById('loading-circle').style.display = 'block';
+            document.getElementById('loading-text').style.display = 'block';
 
             // Create a data object for the API request
             const requestData = {
@@ -150,7 +133,7 @@
                 .then(data => {
                     // Hide loading circle
                     console.log('API Response:', data);
-                    document.getElementById('loading-circle').style.display = 'none';
+                    document.getElementById('loading-text').style.display = 'none';
 
                     // Extract the response from ChatGPT
                     const chatGPTResponse = data.choices[0].message.content;
@@ -164,7 +147,7 @@
                 .catch(error => {
                     console.error('Error:', error);
                     // Hide loading circle in case of an error
-                    document.getElementById('loading-circle').style.display = 'none';
+                    document.getElementById('loading-text').style.display = 'none';
                 });
         }
 
@@ -211,7 +194,7 @@
             img.src = imageUrl;
             plantUMLDiagramContainer.appendChild(img);
         }
-
+		
 
         // Function to encode PlantUML text in HEX format with correct line endings
         function encodePlantUMLInHex(plantUMLCode) {
