@@ -256,5 +256,18 @@ button:active {
     min-height: 70vh; /* Adjust as needed */
 }
 
-
+#loading-text {
+        font-size: 30px; /* Change the font size */
+        color: #000000; /* Change the text color */
+        font-weight: bold; /* Change the font weight */
+        /* Add more CSS properties to customize the look as needed */
+    }
+#diagram-container {
+	text-align: center;
+}
+.plantUML-diagram-container {
+    /* Define styles for the diagram container, e.g., set a maximum width */
+    max-width: 100%; /* Adjust the maximum width as needed */
+    margin: 20px auto; /* Center the diagram container horizontally */
+}
 
