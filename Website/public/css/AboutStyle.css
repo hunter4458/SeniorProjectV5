@@ -1,5 +1,4 @@
 /* styles.css */
-/* styles.css */
 
 /* Reset default browser styles for consistency */
 * {
@@ -168,116 +167,74 @@ main {
     border-radius: 15px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-/* Styling for authentication section */
-.auth-section {
-    margin: 20px 0;
-    padding: 15px;
-    background-color: rgba(0, 165, 200, 0.8); /* Semi-transparent background */
-    border-radius: 12px; /* Rounded corners */
-}
-
-.auth-section h2 {
-    text-align: center; /* Center the title */
-    margin-bottom: 20px; /* Space below the title */
-}
-
-.auth-section form {
-    display: flex; /* Flex layout */
-    flex-direction: column; /* Stack form elements vertically */
-    gap: 15px; /* Space between form elements */
-}
-
-.auth-section label {
-    font-weight: 500; 
-    color: #efefef; /* Text color */
-}
-
-.auth-section input {
-    padding: 10px; 
-    border-radius: 6px; /* Rounded corners */
-    border: 2px solid rgb(0 255 225 / 80%); /* Border styling */
-    background-color: #6b6b6b00; /* Transparent background */
-    color: #ffffff; /* Text color */
-}
-
-.auth-section button {
-    align-self: center; /* Center the button */
-}
-
-/* Styling for file upload and diagram sections */
+/* Style for upload and diagram sections */
 .upload-section, .diagram-section {
-    margin-bottom: 2.5%;
+    margin-bottom: 2.5%; /* Space between sections */
 }
 
+/* Form styling */
 form {
     padding: 2.5%; 
-    background-color: rgb(57 61 65 / 70%); /* Dark semi-transparent background */
+    background-color: rgb(57 61 65 / 70%); /* Semi-transparent dark background */
     border-radius: 12px; /* Rounded corners */
 }
 
+/* Label styling */
 label {
     display: block; /* Display labels as blocks */
-    margin-bottom: 1.5%; /* Space below labels */
-    font-weight: 500; /* Semi-bold text */
-    color: #efefef; /* Text color */
+    margin-bottom: 1.5%; /* Space between label and its control */
+    font-weight: 500; /* Semi-bold font weight */
+    color: #efefef;  
 }
 
-/* Custom styling for file input elements */
-.custom-file-input
-
+/* Custom styling for file input */
 .custom-file-input {
     position: relative;
-    width: 100%;
-    padding: 0.5%; /* Maintaining this padding for overall container */
-    border: 2px solid rgb(0 255 225 / 80%);
-    border-radius: 6px;
-    background-color: #6b6b6b00;
-    color: #ffffff;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5%; /* Added margin for spacing */
+    width: 100%; /* Take up full width */
+    padding: 0.5%; 
+    border: 2px solid rgb(0 255 225 / 80%); /* Semi-transparent border */
+    border-radius: 6px; /* Rounded corners */
+    background-color: #6b6b6b00; /* Transparent background */
+    color: #ffffff;  
+    cursor: pointer; /* Change cursor to pointer */
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; 
+    align-items: center; /* Center-align items vertically */
+    margin-bottom: 1.5%; 
 }
 
+/* Hide the default file input and make it take up full space */
 .custom-file-input input[type="file"] {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    cursor: pointer;
+    position: absolute; /* Absolute positioning */
+    top: 0; /* Starting position */
+    left: 0; 
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    opacity: 0; /* Make it invisible */
+    cursor: pointer; /* Change cursor to pointer */
 }
 
+/* Style for the file input button */
 .custom-file-input label {
-    order: 1;
-    padding: 0.3em 0.8em; /* Adjusted padding for the button */
-    background-color: rgb(0 120 212);
-    color: #ffffff;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.9em; /* Reduced font size for a smaller look */
-    margin: auto 0; /* This will center the button vertically within the container */
+    order: 1; /* Flex order */
+    padding: 0.3em 0.8em; 
+    background-color: rgb(0 120 212); /* Button background color */
+    color: #ffffff; /* Text color */
+    border-radius: 6px; /* Rounded corners */
+    cursor: pointer; 
+    font-size: 0.9em; /* Slightly smaller font size */
+    margin: auto 0; /* Vertically center the button */
 }
 
+/* Style for the file name display */
 .file-upload-label {
-    display: block;
-    margin-bottom: 0.5%; /* Adjusted margin for better spacing */
+    display: block; 
+    margin-bottom: 0.5%; 
 }
 
+ 
+
+/* Display of the chosen file's name */
 #file-name {
     order: 2;
     flex-grow: 1;
@@ -289,7 +246,70 @@ label {
 }
 
 
+
+
+
+
+.click-highlight {
+    color: #4aa3ff; /* Change the color to make it stand out */
+    font-weight: bold; /* Make it bold */
+    cursor: pointer; /* Change cursor to indicate clickability */
+    
+}
+
+
+
+.dropzone {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center-align horizontally */
+    justify-content: center; /* Center-align vertically */
+    border: 2px dashed rgb(0 255 225 / 80%);
+    border-radius: 6px;
+    padding: 40px;
+    min-height: 150px;
+    text-align: center;
+    background-color: #6b6b6b00;
+    color: #ffffff;
+    margin-bottom: 1.5%;
+    cursor: pointer;
+}
+
+
+
+.dropzone:hover {
+    background-color: rgba(0, 210, 255, 0.1);
+}
+
+/* Hide the actual file input */
+#code-file {
+    display: none;
+}
+
+.dropzone-icon {
+    max-height: 100px; /* Adjust the size as needed */
+    margin-bottom: 10px; /* Space between the icon and the text */
+    /* Add other styling as needed */
+}
+
+#dropzone-text {
+    margin-bottom: 10px; /* Adjust space between text and icon */
+}
+
+.dropzone-icon {
+    max-height: 50px; /* Adjust the size as needed */
+    /* Add other styling as needed */
+}
+
+
+
+
+
+
+
+
 /* generatate button*/
+
 button {
     background: linear-gradient(45deg, rgba(0, 255, 225, 0.8), rgba(0, 210, 255, 0.9));
      color: #202124;
@@ -305,6 +325,7 @@ button {
 }
 
 /* buttons above hover generatate button*/
+
 button:hover, input[type="file"]:hover, select:hover {
     transform: scale(1.05);
     background-color: rgba(0, 245, 235, 0.9);
@@ -318,6 +339,22 @@ button:active {
 
 
 
+
+
+
+/* Style the UML diagram display area */
+.uml-diagram {
+    text-align: center;
+    margin-top: 2.5%;
+}
+
+.uml-diagram img {
+    max-width: 90%;
+    height: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+}
+
 @media screen and (max-width: 768px) {
     main {
         padding: 3%;
@@ -326,5 +363,14 @@ button:active {
     input[type="file"], select, button {
         margin-bottom: 2%;
     }
+}
+
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Vertically align contents */
+    text-align: center; /* Center text within the container */
+    min-height: 70vh; /* Adjust as needed */
 }
 
