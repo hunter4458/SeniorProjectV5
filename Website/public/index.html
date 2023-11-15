@@ -106,8 +106,9 @@
            <h2 id="uml-generated-heading" style="display: none;">UML Diagram Generated:</h2>
             <div id="plantUML-diagram-container" class="plantUML-diagram-container">
                 <!-- Placeholder for displaying PlantUML diagram -->
-			<button id="generate-another-button" style="display: none;">Generate Another Diagram</button>
+			
 			</div>
+			<button id="generate-another-button" style="display: none;">Generate Another Diagram</button>
         </section>
 
       <div class="loading-circle-container" id="loading-circle">
@@ -368,7 +369,7 @@ function showUMLGeneratedText() {
                     console.error('File read error:', event.target.error);
 
                     // Display an error message to the user
-                    const plantUMLContainer = document.getElementById('plantUML-diagram-container');
+                    const plantUMLContainer = document.getElementById('plantUML-code-container');
                     plantUMLContainer.textContent = 'Error: Failed to read the selected file.';
                 };
                 reader.readAsText(selectedFile);
@@ -388,25 +389,17 @@ function showUMLGeneratedText() {
         umlGeneratedHeading.style.display = 'block';
     }
 }   
-
-
-// Function to generate another diagram
-    function generateAnotherDiagram() {
-        // Call the function to clear the last diagram
-        clearDiagram();
-
-    // You can also show a loading message if needed
-        document.getElementById('loading-circle').textContent = 'Loading...'; // Replace with your loading message
-}
-		
-   function clearDiagram() {
+ function clearDiagram() {
     const plantUMLDiagramContainer = document.getElementById('plantUML-diagram-container');
     plantUMLDiagramContainer.innerHTML = '';
     document.getElementById('generate-another-button').style.display = 'none';
 }
 
-// Add click event listeners for the buttons
-
+// Function to generate another diagram
+    function generateAnotherDiagram() {
+        // Call the function to clear the last diagram
+        clearDiagram();
+}
     document.getElementById('generate-another-button').addEventListener('click', generateAnotherDiagram);
         </script>
     </body>
