@@ -6,7 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UMLify</title>
     <link rel="stylesheet" href="css/styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.4/pako.min.js"></script>
+	<style>
+	/* Add CSS for the loading circle */
+        .loading-circle-container {
+            width: 100%;
+            text-align: center;
+            display: none; /* Initially hidden */
+        }
+
+        .loading-circle {
+            width: 100px;
+            height: 100px;
+            border: 8px solid rgba(0, 0, 0, 0.1);
+            border-top: 8px solid rgb(113, 179, 91);  
+            border-radius: 50%;
+            animation: spin 2s linear infinite;
+            margin: 20px auto; /* Center the loading circle */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+	</style>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.4/pako.min.js"></script>
 
     <!-- SB -->
 </head>
@@ -15,85 +38,167 @@
 
     <!-- HeaderBox and Everything inside-->
 
+
+<!-- HeaderBox and Everything inside-->
+
     <header>
 
-        <h1 id="h11">UMLify</h1>
-        <!-- Created ID for Nav Bar -->
-        <nav id="navbar">
-            <!-- Navigation menu here -->
+ 
+        
+
+    <div id="logo-container">
+        <a href="index.html" title="Take Me Back to Homepage"> <!-- Replace 'index.html' with the path to your homepage -->
+            <img id="header-logo" src="css/Images/Logo.png" alt="UMLify Logo" />
+        </a>
+    </div>
+
+
+
+
+
+
+  
+      <!-- NovemberSteph -->
+    <nav id="navbar">
+        <button class="hamburger" aria-label="Toggle menu">&#9776;</button>
+        <div class="menu">
             <ul>
-                <li><a href="index.html">Home</a></li>
+                
                 <li><a href="about.html">About</a></li>
-                <li><a href="loginpage.html">Login/Register</a></li>
+                <li><a href="LoginPage.html">Login/Register</a></li>
             </ul>
-        </nav>
+        </div>
+    </nav>
+    
+    
     </header>
     <main>
+      
+        <!-- Section for uploading code -->
         <section class="upload-section">
-            <h2>Upload Your Code</h2>
+            <h2></h2>
+            
+            <!-- Form for uploading code files -->
             <form id="upload-form" enctype="multipart/form-data">
-                <div class="custom-file-input">
-                    <span id="file-name">No File Chosen</span>
-                    <label for="code-file">Choose File</label>
-                    <input type="file" id="code-file" name="codeFile" accept=".java, .cpp, .py, .js, .cs, .html, .css" onchange="updateFileName(this)">
-                </div>
-                </select>
+                <input type="file" id="hidden-file-input" style="display: none;" multiple accept=".java, .cpp, .py, .js, .html, .cs, .css" onchange="updateFileName(this)">
+
                 
-                <button type="submit" id="generate-button">UMLIFY!</button>
+                 <!-- Dropzone Area -->
+                 <div id="dropzone" class="dropzone">
+                    <div id="dropzone-text">Drag your file here or <span class="click-highlight">click</span> to explore!</div>
+                    <img src="css/Images/icon.png" alt="Upload Icon" class="dropzone-icon"/>
+                </div>
+                
+                
+                <!-- Dropdown for selecting UML diagram type 
+                <label for="diagram-type">Choose UML Diagram Type:</label>
+                <select id="diagram-type" name="diagramType">
+                    <option value="class">Class Diagram</option>
+                    <option value="sequence">Sequence Diagram</option>
+                </select>-->
+                
+                <!-- Button to trigger UML diagram generation -->
+                <button type="submit" id="generate-button">Generate UML Diagram</button>
             </form>
         </section>
 
        <section class="diagram-section">
-            <h2>Your Diagram:</h2>
-            <div id="diagram-container">
-            <div id="plantUML-diagram-container" class="plantUML-diagram-container">
-                <!-- PlantUML diagram will be displayed here -->
+           <h2 id="uml-generated-heading" style="display: none;">UML Diagram Generated:</h2>
+            <div id="plantUML-code-container" class="plantUML-code-container">
+                <!-- Placeholder for displaying PlantUML code -->
             </div>
+
+            <div id="plantUML-diagram-container" class="plantUML-diagram-container">
+                <!-- Placeholder for displaying PlantUML diagram -->
 			<button id="generate-another-button" style="display: none;">Generate Another Diagram</button>
-		</div>
+			</div>
         </section>
 
-       <div id="loading-text"></div>
-       
+      <div class="loading-circle-container" id="loading-circle">
+            <div class="loading-circle"></div>
+       </div>
     </main>
 
 
 
     
     <script>
-	    // SB Handle the "No file selected" text update
+	  
+
+    // SB Handle the "No file selected" text update & the filename display when a file is chosen for upload
     function updateFileName(inputElement) {
-            const fileName = inputElement.files[0] ? inputElement.files[0].name : 'Choose a File';
-            document.getElementById('file-name').innerText = fileName;
-        }
+    const dropzone = document.getElementById('dropzone');
+    const dropzoneText = document.getElementById('dropzone-text');
+    const dropzoneIcon = document.querySelector('.dropzone-icon');
+
+    if (inputElement.files.length > 0) {
+        const fileName = inputElement.files[0].name;
+        dropzoneText.innerText = `${fileName} file has been uploaded!`;
+        dropzoneIcon.style.display = 'none'; // Hide the icon
+    } else {
+        dropzoneText.innerText = 'Drag your file here or click to explore!';
+        dropzoneIcon.style.display = 'block'; // Show the icon
+    }
+}
 
 
-    //DISPLAYS RANDOM JOKES WHILE LOADING THE DIAGRAM
-    function displayRandomJoke() {
-        const loadingText = document.getElementById('loading-text');
-        const jokes = [
-            "Why do programmers always mix up Christmas and Halloween? Because Oct 31 == Dec 25.",
-            "Why don't programmers like nature? It has too many bugs.",
-            "How do you comfort a JavaScript bug? You console it.",
-            "Why do Java developers wear glasses? Because they don't see sharp.",
-            "Why do C# and Java developers prefer iOS development? Because Objective-C.",
-            "Why was the JavaScript developer sad? Because they didn't 'null' their feelings.",
-            "How many programmers does it take to change a light bulb? None, that's a hardware problem.",
-            "Why did the programmer go broke? Because he used up all his cache.",
-        ];
-        const randomJoke = jokes[Math.floor(Math.random() * jokes.length)];
-        loadingText.textContent = randomJoke;
-		}
 
-		// Call displayRandomJoke every 5 seconds (adjust as needed)
-		setInterval(displayRandomJoke, 5000);
 
-		// Simulate loading for 20 seconds (adjust as needed)
-		setTimeout(() => {
-        // Replace this with code to display your UML diagram
-        const loadingText = document.getElementById('loading-text');
-        loadingText.textContent = 'UML Diagram Loaded!';
-		}, 20000);
+
+//HAMBURGERNAV
+document.addEventListener('DOMContentLoaded', function () {
+    const hamburger = document.querySelector('.hamburger');
+    const menu = document.querySelector('.menu');
+
+    hamburger.addEventListener('click', function () {
+        console.log('Hamburger clicked'); // This should show in the console when you click the hamburger
+        menu.classList.toggle('active');
+    });
+});
+
+
+
+// Trigger file input when dropzone is clicked
+document.getElementById('dropzone').addEventListener('click', function() {
+    document.getElementById('hidden-file-input').click();
+});
+
+// Handle file selection from the file input
+document.getElementById('hidden-file-input').addEventListener('change', function(event) {
+    let files = event.target.files; // Get the selected files
+    for (let i = 0; i < files.length; i++) {
+        console.log('Selected file:', files[i].name); // Process each file (example: logging file name)
+    }
+});
+
+
+document.getElementById('dropzone').addEventListener('dragover', function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.style.backgroundColor = 'rgba(0, 210, 255, 0.2)';
+});
+document.getElementById('dropzone').addEventListener('drop', function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.style.backgroundColor = ''; // Reset background color
+
+    const files = event.dataTransfer.files;
+    document.getElementById('hidden-file-input').files = files; // Set the files to the hidden input
+
+    // Update filename display and process files
+    updateFileName(document.getElementById('hidden-file-input'));
+});
+
+
+    const generateButton = document.getElementById('generate-button');
+
+    generateButton.addEventListener('mouseover', function() {
+        generateButton.textContent = 'Begin UMLify';
+    });
+
+    generateButton.addEventListener('mouseout', function() {
+        generateButton.textContent = 'Generate UML Diagram';
+    });
 
 
 
@@ -120,8 +225,10 @@
 
 
     function interactWithChatGPT(userMessage) {
-            // Show loading circle
-            document.getElementById('loading-text').style.display = 'block';
+            document.getElementById('uml-generated-heading').textContent = 'UML Diagram Generating...';
+
+			// Show loading circle
+            document.getElementById('loading-circle').style.display = 'block';
 
             // Create a data object for the API request
             const requestData = {
@@ -146,8 +253,8 @@
                 .then(data => {
                     // Hide loading circle
                     console.log('API Response:', data);
-                    document.getElementById('loading-text').style.display = 'none';
-
+                    document.getElementById('loading-circle').style.display = 'none';
+					document.getElementById('uml-generated-heading').textContent = 'UML Diagram Generated:';
                     // Extract the response from ChatGPT
                     const chatGPTResponse = data.choices[0].message.content;
 
@@ -160,7 +267,8 @@
                 .catch(error => {
                     console.error('Error:', error);
                     // Hide loading circle in case of an error
-                    document.getElementById('loading-text').style.display = 'none';
+                    document.getElementById('loading-circle').style.display = 'none';
+					document.getElementById('uml-generated-heading').textContent = 'Error Generating UML Diagram';
                 });
         }
 
@@ -217,6 +325,13 @@
         }
 		
 
+function showUMLGeneratedText() {
+    // Select the UML Generated heading and make it visible
+    const umlGeneratedHeading = document.getElementById('uml-generated-heading');
+    if (umlGeneratedHeading) {
+        umlGeneratedHeading.style.display = 'block';
+    }
+}
 
 
         // Function to encode PlantUML text in HEX format with correct line endings
@@ -244,6 +359,7 @@
 
             if (selectedFile) {
                 // Read the contents of the selected file
+				showUMLGeneratedText()
                 const reader = new FileReader();
                 reader.onload = function (event) {
                     const codeContent = event.target.result;
@@ -261,15 +377,20 @@
                 };
                 reader.readAsText(selectedFile);
             }
+			 else {
+        // You might want to handle the case where no file is selected before submitting
+        alert("Please select a file to generate the UML diagram.");
         });
-    function clearDiagram() {
-    const plantUMLDiagramContainer = document.getElementById('plantUML-diagram-container');
-    plantUMLDiagramContainer.innerHTML = '';
-    document.getElementById('generate-another-button').style.display = 'none';
-}
+		
 
-
-
+    // Function to show the UML Generated text
+function showUMLGeneratedText() {
+    // Select the UML Generated heading and make it visible
+    const umlGeneratedHeading = document.getElementById('uml-generated-heading');
+    if (umlGeneratedHeading) {
+        umlGeneratedHeading.style.display = 'block';
+    }
+}   
 
 
 // Function to generate another diagram
@@ -278,7 +399,13 @@
         clearDiagram();
 
     // You can also show a loading message if needed
-        document.getElementById('loading-text').textContent = 'Loading...'; // Replace with your loading message
+        document.getElementById('loading-circle').textContent = 'Loading...'; // Replace with your loading message
+}
+		
+   function clearDiagram() {
+    const plantUMLDiagramContainer = document.getElementById('plantUML-diagram-container');
+    plantUMLDiagramContainer.innerHTML = '';
+    document.getElementById('generate-another-button').style.display = 'none';
 }
 
 // Add click event listeners for the buttons
