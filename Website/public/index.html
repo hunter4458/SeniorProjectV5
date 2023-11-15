@@ -368,7 +368,7 @@ function showUMLGeneratedText() {
                     console.error('File read error:', event.target.error);
 
                     // Display an error message to the user
-                    const plantUMLContainer = document.getElementById('plantUML-code-container');
+                    const plantUMLContainer = document.getElementById('plantUML-diagram-container');
                     plantUMLContainer.textContent = 'Error: Failed to read the selected file.';
                 };
                 reader.readAsText(selectedFile);
