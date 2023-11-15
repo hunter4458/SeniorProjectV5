@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About UMLify</title>
+    <link rel="stylesheet" href="LoginStyle.css"> <!-- Ensure this path is correct -->
+</head>
+<body>
+
+    <!-- Header and Navigation -->
+    <header>
+        <div id="logo-container">
+            <a href="home.html" title="Take Me Back to Homepage">
+                <img id="header-logo" src="css/images/Logo.png" alt="UMLify Logo" />
+            </a>
+        </div>
+
+        <!-- Hamburger Menu -->
+        <nav id="navbar">
+            <button class="hamburger" aria-label="Toggle menu">&#9776;</button>
+            <div class="menu">
+                <ul>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="LoginPage.html">Login/Register</a></li>
+                    <li><a href="home.html">UML Tool</a></li>
+                </ul>
+            </div>
+        </nav>
+
+
+
+    </header>
+
+    <main>
+        <!-- Login Form -->
+        <section class="auth-section">
+            <h2>Login</h2>
+            <form id="login-form">
+                <label for="login-email">Email:</label>
+                <input type="email" id="login-email" name="loginEmail" required>
+
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" name="loginPassword" required>
+
+                <button type="submit" id="login-button">Login</button>
+            </form>
+        </section>
+
+        <!-- Registration Form -->
+        <section class="auth-section">
+            <h2>Register</h2>
+            <form id="register-form">
+                <label for="register-username">Username:</label>
+                <input type="text" id="register-username" name="registerUsername" required>
+
+                <label for="register-email">Email:</label>
+                <input type="email" id="register-email" name="registerEmail" required>
+
+                <label for="register-password">Password:</label>
+                <input type="password" id="register-password" name="registerPassword" required>
+
+                <label for="register-confirm-password">Confirm Password:</label>
+                <input type="password" id="register-confirm-password" name="registerConfirmPassword" required>
+
+                <button type="submit" id="register-button">Register</button>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        // add javaScript code here for form submission handling
+
+
+        
+
+    </script>
+</body>
+
+</html>
