@@ -72,13 +72,17 @@
     <p>&copy; 2023 Umlify. All rights reserved.</p>
 </footer>
 
-    <script>
-        // add javaScript code here for form submission handling
+     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const hamburger = document.querySelector('.hamburger');
+            const menu = document.querySelector('.menu');
 
-
-        
-
+            hamburger.addEventListener('click', function () {
+                menu.classList.toggle('active');
+            });
+        });
     </script>
+	
 </body>
 
 </html>
