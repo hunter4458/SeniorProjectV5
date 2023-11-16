@@ -400,7 +400,10 @@ function showUMLGeneratedText() {
 
 // Function to generate another diagram
     function generateAnotherDiagram() {
-        // Call the function to clear the last diagram
+        const fileInput = document.getElementById('hidden-file-input');
+    fileInput.value = ''; // Reset the file input
+    updateFileName(fileInput); // Reset the dropzone text
+// Call the function to clear the last diagram
         clearDiagram();
 }
     document.getElementById('generate-another-button').addEventListener('click', generateAnotherDiagram);
