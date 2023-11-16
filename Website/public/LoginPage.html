@@ -81,6 +81,9 @@
                 menu.classList.toggle('active');
             });
         });
+		
+		
+		
     document.addEventListener('DOMContentLoaded', function () {
         const loginForm = document.getElementById('login-form');
         const registerForm = document.getElementById('register-form');
@@ -117,11 +120,12 @@
             const email = document.getElementById('register-email').value;
             const password = document.getElementById('register-password').value;
             const confirmPassword = document.getElementById('register-confirm-password').value;
+            const messageContainer = document.getElementById('message-container'); // Add this line
 
             // Check if passwords match
             if (password !== confirmPassword) {
-                // Handle password mismatch error (e.g., display an error message)
-                console.error('Passwords do not match');
+                // Handle password mismatch error
+                messageContainer.innerText = 'Passwords do not match'; // Update message
                 return;
             }
 
@@ -135,12 +139,13 @@
             })
             .then(response => response.json())
             .then(data => {
-                // Handle the response (e.g., show a success message or redirect)
-                console.log(data);
+                // Handle the response
+                messageContainer.innerText = data.message; // Display registration message
             })
             .catch(error => {
-                // Handle registration error (e.g., display an error message)
+                // Handle registration error
                 console.error(error);
+                messageContainer.innerText = 'Registration failed'; // Display error message
             });
         });
     });
