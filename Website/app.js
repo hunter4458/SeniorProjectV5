@@ -5,7 +5,7 @@ const mongoose = require('mongoose'); // Import Mongoose
 const passport = require('passport'); // Import Passport for authentication
 const LocalStrategy = require('passport-local').Strategy; // Use Passport's local strategy
 require('dotenv').config();
-
+const User = require('./user');
 const app = express();
 const PORT = process.env.PORT || 80;
 
