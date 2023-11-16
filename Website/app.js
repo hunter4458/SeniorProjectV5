@@ -13,8 +13,8 @@ const PORT = process.env.PORT || 80;
 mongoose.connect(process.env.AZURE_COSMOS_CONNECTIONSTRING, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-}) .then(() => console.log('MongoDB Connected'))
-.catch(err => console.error('MongoDB connection error:', err));
+});
+
 app.use(bodyParser.json());
 
 // Serve static files from the "public" directory
@@ -27,7 +27,6 @@ app.use(passport.session());
 passport.use(new LocalStrategy(
   { usernameField: 'email' },
   (email, password, done) => {
-    console.log(`Attempting to authenticate user: ${username}`);
     User.findOne({ email }, (err, user) => {
       if (err) return done(err);
       if (!user) return done(null, false, { message: 'Incorrect email.' });
@@ -81,7 +80,6 @@ app.post('/chatGPTRequest', (req, res) => {
 
 // Registration Route
 app.post('/register', (req, res) => {
-  console.log('Register route accessed', req.body);
   const { username, email, password } = req.body;
   const newUser = new User({ username, email, password });
 
