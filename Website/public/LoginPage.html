@@ -66,6 +66,7 @@
 
                 <button type="submit" id="register-button">Register</button>
             </form>
+			<div id="message-container"></div>
         </section>
     </main>
 	<footer>
@@ -115,37 +116,40 @@
 
         // Handle Registration Form Submission
         registerForm.addEventListener('submit', function (event) {
-            event.preventDefault();
-            const username = document.getElementById('register-username').value;
-            const email = document.getElementById('register-email').value;
-            const password = document.getElementById('register-password').value;
-            const confirmPassword = document.getElementById('register-confirm-password').value;
-            const messageContainer = document.getElementById('message-container'); // Add this line
+        event.preventDefault();
+        const username = document.getElementById('register-username').value;
+        const email = document.getElementById('register-email').value;
+        const password = document.getElementById('register-password').value;
+        const confirmPassword = document.getElementById('register-confirm-password').value;
+        const messageContainer = document.getElementById('message-container'); // Reference the message container element
 
-            // Check if passwords match
-            if (password !== confirmPassword) {
-                // Handle password mismatch error
-                messageContainer.innerText = 'Passwords do not match'; // Update message
-                return;
-            }
+        // Clear previous messages
+        messageContainer.innerText = '';
 
-            // Send a POST request to your server for registration
-            fetch('/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ username, email, password })
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Handle the response
-                messageContainer.innerText = data.message; // Display registration message
-            })
-            .catch(error => {
-                // Handle registration error
-                console.error(error);
-                messageContainer.innerText = 'Registration failed'; // Display error message
+        // Check if passwords match
+        if (password !== confirmPassword) {
+            // Handle password mismatch error
+            messageContainer.innerText = 'Passwords do not match'; // Display error message
+            return;
+        }
+
+        // Send a POST request to your server for registration
+        fetch('/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, email, password })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Handle the response
+            messageContainer.innerText = data.message; // Display registration message
+        })
+        .catch(error => {
+            // Handle registration error
+            console.error(error);
+            messageContainer.innerText = 'Registration failed'; // Display error message
             });
         });
     });
