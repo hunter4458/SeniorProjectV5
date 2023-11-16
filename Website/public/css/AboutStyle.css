@@ -13,6 +13,29 @@ body, h1, h2, form, label, input, select, button {
     font-weight: 300;
 }
 
+h2, h3 {
+    font-weight: 600; /* Increase the font-weight for boldness */
+}
+
+
+
+
+
+
+
+/* Adjusting h2 spacing */
+.about-section h2 {
+    margin-top: 2rem; /* Increase space above h2 for better separation */
+    margin-bottom: 1.5rem; /* Increase space below h2 */
+}
+
+
+
+
+
+
+
+
 /* Header styling */
 header {
     display: flex;
@@ -160,12 +183,58 @@ body {
 /* Main content area styling */
 main {
     max-width: 950px;
-    margin: 2% auto;
-    padding: 2.5%;
+    margin: 3% auto; /* Increased margin for more space around the main content */
+    padding: 3%; /* More padding for better spacing */
     background-color: rgba(0, 165, 200, 0.9);
     box-shadow: 0 4px 20px rgba(0, 255, 225, 0.7);
     border-radius: 15px;
+    overflow: hidden; /* Ensures no content spills out of the border radius */
 }
+
+
+
+.about-section h2, .about-section h3 {
+    margin-top: 1.5rem; /* Increased margin for more space above headers */
+    margin-bottom: 1rem; /* Space below headers before text starts */
+}
+
+
+
+
+/* Paragraph Spacing */
+.about-section p {
+    margin-top: 1rem; /* Space above paragraphs */
+    margin-bottom: 1rem; /* Space below paragraphs */
+    line-height: 1.6; /* Increased line height for better readability */
+    text-align: justify; /* Justify text for a cleaner look */
+}
+
+
+
+
+/* List Item Spacing */
+.about-section ul {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding-left: 20px; /* Indent list items for better readability */
+}
+
+
+.about-section li {
+    margin-bottom: 0.5rem; /* Space below each list item */
+}
+
+/* Contact Section Spacing */
+.contact-section {
+    margin-top: 2rem; /* More space above the contact section */
+    padding: 1.5rem; /* Padding inside the contact section */
+}
+
+
+
+
+
+
 
 /* Style for upload and diagram sections */
 .upload-section, .diagram-section {
@@ -357,11 +426,8 @@ button:active {
 
 @media screen and (max-width: 768px) {
     main {
-        padding: 3%;
-    }
-
-    input[type="file"], select, button {
-        margin-bottom: 2%;
+        margin: 5% 3%; /* Adjust margin for smaller screens */
+        padding: 5%; /* More padding on smaller screens */
     }
 }
 
@@ -374,3 +440,20 @@ button:active {
     min-height: 70vh; /* Adjust as needed */
 }
 
+/* Footer Styling */
+footer {
+    text-align: center;
+    padding: 1rem 0;
+    background-color: rgba(0, 150, 200, 0.9); /* Similar to the header for consistency */
+    color: #efefef;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for a lifted effect */
+    font-size: 0.9em;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Footer Paragraph Styling */
+footer p {
+    margin: 0; /* Removes default margin for a cleaner look */
+}
