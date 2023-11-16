@@ -398,12 +398,14 @@ function showUMLGeneratedText() {
     document.getElementById('generate-another-button').style.display = 'none';
 }
 
-// Function to generate another diagram
-    function generateAnotherDiagram() {
+	// Function to generate another diagram
+function generateAnotherDiagram() {
         const fileInput = document.getElementById('hidden-file-input');
     fileInput.value = ''; // Reset the file input
     updateFileName(fileInput); // Reset the dropzone text
-// Call the function to clear the last diagram
+	// Call the function to clear the last diagram
+	const umlGeneratedHeading = document.getElementById('uml-generated-heading');
+    umlGeneratedHeading.style.display = 'none';
         clearDiagram();
 }
     document.getElementById('generate-another-button').addEventListener('click', generateAnotherDiagram);
