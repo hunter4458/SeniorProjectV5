@@ -328,3 +328,20 @@ button:active {
     }
 }
 
+/* Footer Styling */
+footer {
+    text-align: center;
+    padding: 1rem 0;
+    background-color: rgba(0, 150, 200, 0.9); / Similar to the header for consistency /
+    color: #efefef;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); / Subtle shadow for a lifted effect /
+    font-size: 0.9em;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+/*Footer Paragraph Styling */
+footer p {
+    margin: 0; / Removes default margin for a cleaner look
+}
