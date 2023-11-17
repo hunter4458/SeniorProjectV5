@@ -17,20 +17,6 @@
     
     
     
-    
-    //HAMBURGERNAV
-    document.addEventListener('DOMContentLoaded', function () {
-        const hamburger = document.querySelector('.hamburger');
-        const menu = document.querySelector('.menu');
-    
-        hamburger.addEventListener('click', function () {
-            console.log('Hamburger clicked'); // This should show in the console when you click the hamburger
-            menu.classList.toggle('active');
-        });
-    });
-    
-    
-    
     // Trigger file input when dropzone is clicked
     document.getElementById('dropzone').addEventListener('click', function() {
         document.getElementById('hidden-file-input').click();
