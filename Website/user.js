@@ -1,22 +1,18 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+// user.js
+class User {
+    constructor(db) {
+        this.collection = db.collection('users');
+    }
 
-const userSchema = new Schema({
-  username: {
-    type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  password: {
-    type: String,
-    required: true
-  }
-});
+    // Method to find user by email
+    findByEmail(email) {
+        return this.collection.findOne({ email: email });
+    }
 
-const User = mongoose.model('User', userSchema);
+    // Method to add a new user
+    addUser(user) {
+        return this.collection.insertOne(user);
+    }
+}
 
 module.exports = User;
