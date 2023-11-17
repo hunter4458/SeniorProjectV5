@@ -3,7 +3,7 @@ console.log('Starting the app');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-var mongoClient = require('mongodb').MongoClient;
+import { MongoClient } from "mongodb";
 const bcrypt = require('bcryptjs');
 const User = require('./user');
 require('dotenv').config();
@@ -14,15 +14,16 @@ const PORT = process.env.PORT || 8080;
 // Replace with your actual connection string
 const dbUrl = process.env.MONGODB_CONNECTION;
 
-mongoClient.connect(dbUrl, function (err, client) {
-    console.log('Attempting connection');
-    if (err) {
-        console.error('Failed to connect to MongoDB', err);
-        return;
-    }
+const client = new MongoClient(dbUrl);
+let conn;
+try {
+  conn = await client.connect();
+} catch(e) {
+  console.error(e);
+}
 
     console.log('Connected to Database');
-    const db = client.db('RegisteredUsers'); // replace with your database name
+    const db = conn.db('RegisteredUsers'); // replace with your database name
     const userModel = new User(db);
 
     app.use(express.static(path.join(__dirname, 'public')));
@@ -55,7 +56,7 @@ mongoClient.connect(dbUrl, function (err, client) {
             res.status(500).send('Error logging in');
         }
     });
-    
+
     // Routes for serving static files
     app.get('/', (req, res) => {
         res.sendFile(path.join(__dirname, 'public', 'index.html'));
@@ -91,4 +92,4 @@ mongoClient.connect(dbUrl, function (err, client) {
     app.listen(PORT, () => {
         console.log(`Server started on http://localhost:${PORT}`);
     });
-});
+
