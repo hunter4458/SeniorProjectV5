@@ -3,13 +3,13 @@ console.log('Starting the app');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const mongoClient = require('mongodb').MongoClient;
+var mongoClient = require('mongodb').MongoClient;
 const bcrypt = require('bcryptjs');
 const User = require('./user');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 10255;
+const PORT = 10255;
 
 // Replace with your actual connection string
 const dbUrl = process.env.MONGODB_CONNECTION;
@@ -25,7 +25,7 @@ mongoClient.connect(dbUrl, function (err, client) {
     const db = client.db('RegisteredUsers'); // replace with your database name
     const userModel = new User(db);
 
-    app.use(express.static('public'));
+    app.use(express.static(path.join(__dirname, 'public')));
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
 
