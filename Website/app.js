@@ -23,7 +23,7 @@ app.use(session({
 }));
 
 
-const PORT = 10255;
+const PORT = process.env.PORT || 8080;
 
 // Replace with your actual connection string
 const mongoURI = process.env.MONGODB_CONNECTION;
@@ -60,6 +60,8 @@ app.post('/register', async (req, res) => {
         const userModel = new User(client.db('RegisteredUsers'));
         await userModel.addUser({ username: registerUsername, email: registerEmail, password: hashedPassword });
 
+        req.session.loggedIn = true;
+        req.session.username = registerUsername;
         // Send a JSON response instead of plain text
         res.json({ success: true, message: 'User registered successfully', username: registerUsername});
     } catch (err) {

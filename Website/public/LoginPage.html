@@ -149,7 +149,7 @@
                 if (data.success) {
                     // Show the alert
                     alert('User registered successfully as ' + data.username);
-
+					document.getElementById('loginStatus').innerText = 'Logged in as ' + data.username;
                     // Redirect to the login page
                     window.location.href = '/home.html'; // Replace with the correct path
                 } else {
