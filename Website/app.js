@@ -12,7 +12,7 @@ const app = express();
 const PORT = process.env.PORT || 10255;
 
 // Replace with your actual connection string
-const dbUrl = "mongodb://seniorprojectv5-server:ao4PLlQMyuC2eQ9nLeq2vGjfcBG8Zg3yc7IacWtQQamtZGk6gu0PcfRLnaOxV2Bwsz3h04UXlyslACDbYjQNjg%3D%3D@seniorprojectv5-server.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&maxIdleTimeMS=120000&appName=@seniorprojectv5-server@";
+const dbUrl = process.env.MONGODB_CONNECTION;
 
 mongoClient.connect(dbUrl, function (err, client) {
     console.log('Attempting connection');
