@@ -9,7 +9,7 @@ const User = require('./user');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT || 8080;
 
 // Replace with your actual connection string
 const dbUrl = process.env.MONGODB_CONNECTION;
