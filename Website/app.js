@@ -41,10 +41,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.post('/register', async (req, res) => {
     try {
-        const { username, email, password } = req.body;
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const { registerUsername, registerEmail, registerPassword } = req.body;
+        const hashedPassword = await bcrypt.hash(registerPassword, 10);
         const userModel = new User(client.db('RegisteredUsers'));
-        await userModel.addUser({ username, email, password: hashedPassword });
+        await userModel.addUser({ username: registerUsername, email: registerEmail, password: hashedPassword });
         res.status(201).send('User registered successfully');
     } catch (err) {
         console.error('Error registering new user:', err);
@@ -54,11 +54,11 @@ app.post('/register', async (req, res) => {
 
 app.post('/login', async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { loginEmail, loginPassword } = req.body;
         const userModel = new User(client.db('RegisteredUsers'));
-        const user = await userModel.findByEmail(email);
+        const user = await userModel.findByEmail(loginEmail);
 
-        if (user && await bcrypt.compare(password, user.password)) {
+        if (user && await bcrypt.compare(loginPassword, user.password)) {
             res.send('Logged in successfully');
         } else {
             res.status(401).send('Login failed');
