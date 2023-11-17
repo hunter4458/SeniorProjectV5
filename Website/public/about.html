@@ -23,12 +23,17 @@
             <div class="menu">
                 <ul>
                     <li><a href="about.html">About</a></li>
-                    <li><a href="LoginPage.html">Login/Register</a></li>
+					<div id="login-register-container">
+						<li><a href="LoginPage.html">Login/Register</a></li>
+					</div>
                     <li><a href="home.html">UML Tool</a></li>
+					<li id="logout-container" style="display: none;">
+						<a href="/logout">Logout</a>
+					</li>
                 </ul>
             </div>
         </nav>
-
+ <div id="session-status"></div>
 
 
     </header>
@@ -68,15 +73,6 @@
 
 
     <!-- JavaScript for Hamburger Menu -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const hamburger = document.querySelector('.hamburger');
-            const menu = document.querySelector('.menu');
-
-            hamburger.addEventListener('click', function () {
-                menu.classList.toggle('active');
-            });
-        });
-    </script>
+	<script src="login.js"></script>
 </body>
 </html>
