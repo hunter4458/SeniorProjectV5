@@ -259,13 +259,20 @@
     
         // Function to generate another diagram
     function generateAnotherDiagram() {
-            const fileInput = document.getElementById('hidden-file-input');
+        const fileInput = document.getElementById('hidden-file-input');
         fileInput.value = ''; // Reset the file input
         updateFileName(fileInput); // Reset the dropzone text
+        
+        // Hide the "Regenerate Diagram" button
+        const regenerateButton = document.getElementById('regenerate-button');
+        if (regenerateButton) {
+            regenerateButton.style.display = 'none';
+        }
+        
         // Call the function to clear the last diagram
         const umlGeneratedHeading = document.getElementById('uml-generated-heading');
         umlGeneratedHeading.style.display = 'none';
-            clearDiagram();
+        clearDiagram();
     }
         document.getElementById('generate-another-button').addEventListener('click', generateAnotherDiagram);
 
