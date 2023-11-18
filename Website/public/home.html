@@ -44,17 +44,12 @@
 
     <header>
 
- 
-        
 
     <div id="logo-container">
         <a href="index.html" title="Take Me Back to Homepage"> <!-- Replace 'index.html' with the path to your homepage -->
             <img id="header-logo" src="css/images/Logo.png" alt="UMLify Logo" />
         </a>
     </div>
-
-
-
   
       <!-- NovemberSteph -->
     <nav id="navbar">
@@ -91,15 +86,6 @@
                     <div id="dropzone-text">Drag your file here or <span class="click-highlight">click</span> to explore!</div>
                     <img src="css/images/icon.png" alt="Upload Icon" class="dropzone-icon"/>
                 </div>
-                
-                
-                <!-- Dropdown for selecting UML diagram type 
-                <label for="diagram-type">Choose UML Diagram Type:</label>
-                <select id="diagram-type" name="diagramType">
-                    <option value="class">Class Diagram</option>
-                    <option value="sequence">Sequence Diagram</option>
-                </select>-->
-                
                 <!-- Button to trigger UML diagram generation -->
                 <button type="submit" id="generate-button">Generate UML Diagram</button>
             </form>
@@ -112,6 +98,7 @@
 			
 			</div>
 			<button id="generate-another-button" style="display: none;">Generate Another Diagram</button>
+            <button id="regenerate-button" style="display: none;">Regenerate Diagram</button>
         </section>
 
       <div class="loading-circle-container" id="loading-circle">

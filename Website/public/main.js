@@ -117,6 +117,11 @@
     
                         // Display the PlantUML code
                         displayPlantUMLCode(plantUMLCode);
+
+                        const regenerateButton = document.getElementById('regenerate-button');
+                        if (regenerateButton) {
+                            regenerateButton.style.display = 'block';
+                            }
                     })
                     .catch(error => {
                         console.error('Error:', error);
@@ -263,3 +268,44 @@
             clearDiagram();
     }
         document.getElementById('generate-another-button').addEventListener('click', generateAnotherDiagram);
+
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Wrap your code in this event listener to ensure the DOM is fully loaded
+        
+            function regenerateDiagram() {
+                const fileInput = document.getElementById('hidden-file-input');
+                const selectedFile = fileInput.files[0];
+        
+                if (selectedFile) {
+                    // Read the contents of the selected file
+                    const reader = new FileReader();
+                    reader.onload = function (event) {
+                        const codeContent = event.target.result;
+        
+                        // Send the code content to ChatGPT for regeneration
+                        interactWithChatGPT(codeContent);
+                    };
+                    reader.onerror = function (event) {
+                        // Handle file read errors here
+                        console.error('File read error:', event.target.error);
+        
+                        // Display an error message to the user
+                        const plantUMLContainer = document.getElementById('plantUML-code-container');
+                        plantUMLContainer.textContent = 'Error: Failed to read the selected file.';
+                    };
+                    reader.readAsText(selectedFile);
+                } else {
+                    // You might want to handle the case where no file is selected for regeneration
+                    alert("Please select a file to regenerate the UML diagram.");
+                }
+            }
+        
+            // Add an event listener to the "Regenerate Diagram" button
+            const regenerateButton = document.getElementById('regenerate-button');
+            if (regenerateButton) {
+                regenerateButton.addEventListener('click', regenerateDiagram);
+            }
+        });
+        
